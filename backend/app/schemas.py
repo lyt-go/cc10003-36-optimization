@@ -28,6 +28,27 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class ArtifactPayload(BaseModel):
+    """生成/换版报表产物的请求。"""
+
+    channels: list[str] | None = None
+    scopes: list[str] | None = None
+    segment_count: int = 3
+    change_report_version: bool = False
+    note: str | None = None
+    scheduler: str = "manual"
+
+
+class PushPayload(BaseModel):
+    """渠道推送请求；overrides 用于验收时编排渠道返回（成功/超时/错误/空回执）。"""
+
+    channels: list[str] | None = None
+    scopes: list[str] | None = None
+    segment_count: int | None = None
+    scheduler: str = "manual"
+    overrides: dict[str, list[dict[str, Any]]] | None = None
+
+
 
 class MetricEntry(BaseModel):
     """指标定义明细结构。"""
